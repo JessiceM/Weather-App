@@ -1,4 +1,3 @@
-alert("Testing");
 // Displays current time in Dallas
 let currentDate = document.querySelector("h4");
 let time = new Date();
