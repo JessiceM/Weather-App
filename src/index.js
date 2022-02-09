@@ -35,10 +35,10 @@ function showPosition(response) {
   lat = response.coords.latitude;
   lon = response.coords.longitude;
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
-  axios.get(apiUrl).then(location);
+  axios.get(apiUrl).then(locaTion);
 }
 //4B gets coordinates values and displays city then calls getTemp
-function location(response) {
+function locaTion(response) {
   let currentcity = document.querySelector("h1");
   currentcity.innerHTML = response.data.name;
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
