@@ -71,3 +71,25 @@ p {
   text-align: center;
   font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
 }
+.locationButton {
+  background: #6d42c7;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  transition: all 200ms ease-in-out;
+}
+.locationButton:hover {
+  background: #430f58;
+}
+.submitButton {
+  background: #0b5ed7;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  transition: all 200ms ease-in-out;
+}
+.submitButton:hover {
+  background: #062c80;
+}
