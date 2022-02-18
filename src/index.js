@@ -53,11 +53,17 @@ function locaTion(response) {
   axios.get(apiUrl).then(getTemp);
 }
 let Temp = null;
-//4A & 5B. Final call for Submit and Current Button
+//4A & 5B. Final call for Submit and Current Button.....Displays Temp and weather icon
 function getTemp(response) {
   Temp = response.data.main.temp;
   let h2 = document.querySelector("h2");
   h2.innerHTML = Math.round(Temp);
+  let weatherIcon = document.querySelector("#icon");
+  weatherIcon.setAttribute(
+    "src",
+    `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
+  );
+  weatherIcon.setAttribute("alt", response.data.weather[0].description);
 }
 //2B. Get user coordinates
 function getCurrentPosition() {
