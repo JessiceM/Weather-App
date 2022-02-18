@@ -1,11 +1,20 @@
 // Displays current time in Dallas
-let currentDate = document.querySelector("h4");
-let time = new Date();
-let days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
-let day = days[time.getDay()];
-let hour = time.getHours();
-let minutes = time.getMinutes();
-currentDate.innerHTML = `${day} ${hour}:${minutes}`;
+function timeDate(timestamp) {
+  let currentDate = document.querySelector("#dateTime");
+  let time = new Date(timestamp);
+  let days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
+  let day = days[time.getDay()];
+  let hours = time.getHours();
+  if (hours < 10) {
+    hours = `0${hours}`;
+  }
+  let minutes = time.getMinutes();
+  if (minutes < 10) {
+    minutes = `0${minutes}`;
+  }
+  currentDate.innerHTML = `${day} ${hour}:${minutes}`;
+  return `${day} ${hours}:${minutes}`;
+}
 
 //1A. Submit button clicks
 let apiKey = "e5d2f23cc936c207378a1d9745e0ab60";
@@ -43,17 +52,45 @@ function locaTion(response) {
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
   axios.get(apiUrl).then(getTemp);
 }
-
+let Temp = null;
 //4A & 5B. Final call for Submit and Current Button
 function getTemp(response) {
-  let Temp = Math.round(response.data.main.temp);
+  Temp = response.data.main.temp;
   let h2 = document.querySelector("h2");
-  h2.innerHTML = `${Temp}`;
+  h2.innerHTML = Math.round(Temp);
 }
 //2B. Get user coordinates
 function getCurrentPosition() {
   navigator.geolocation.getCurrentPosition(showPosition);
 }
+
 //1B. Current button clicks
 let currentForm = document.querySelector("#current-input");
 currentForm.addEventListener("click", getCurrentPosition);
+
+// Displays fahren
+function displayFahren(event) {
+  event.preventDefault(); //don't open browser
+  let temp = document.querySelector("h2");
+  //Remove the active class the celsius link
+  celsiusLink.classList.remove("active");
+  fahrenLink.classList.add("active");
+  let fahrenTemp = (Temp * 9) / 5 + 32;
+  temp.innerHTML = Math.round(fahrenTemp);
+}
+
+// Displays back to celcius
+function displayCelsius(event) {
+  event.preventDefault();
+  let temp = document.querySelector("h2");
+  celsiusLink.classList.add("active");
+  fahrenLink.classList.remove("active");
+
+  temp.innerHTML = Math.round(Temp);
+}
+
+let fahrenLink = document.querySelector("#fahrenConvert");
+fahrenLink.addEventListener("click", displayFahren);
+
+let celsiusLink = document.querySelector("#celsiusConvert");
+celsiusLink.addEventListener("click", displayCelsius);

@@ -27,17 +27,12 @@ h4 {
   text-align: center;
   margin: 10px;
 }
-.celcius {
-  font-size: 30px;
+.units {
+  font-size: 25px;
   position: relative;
   top: -15px;
 }
 
-.faran {
-  font-size: 30px;
-  position: relative;
-  top: -15px;
-}
 .weather {
   position: relative;
   right: -10px;
@@ -92,4 +87,13 @@ p {
 }
 .submitButton:hover {
   background: #062c80;
+}
+
+.container .active {
+  color: rgb(90, 98, 117);
+  cursor: default;
+  text-decoration: none;
+}
+.container .active:hover {
+  text-decoration: none;
 }
