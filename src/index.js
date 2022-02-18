@@ -64,6 +64,10 @@ function getTemp(response) {
     `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
   );
   weatherIcon.setAttribute("alt", response.data.weather[0].description);
+  let windDesc = document.querySelector("#wind");
+  let description = document.querySelector("#description");
+  windDesc.innerHTML = Math.round(response.data.wind.speed);
+  description.innerHTML = response.data.weather[0].description;
 }
 //2B. Get user coordinates
 function getCurrentPosition() {

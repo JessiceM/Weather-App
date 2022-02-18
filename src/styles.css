@@ -18,14 +18,28 @@ h1 {
 h2 {
   font-size: 70px;
   position: relative;
-  top: -20px;
+  top: -25px;
   left: 15px;
+  margin: 0;
+  padding: 0;
 }
 h1,
 h3,
 h4 {
   text-align: center;
   margin: 10px;
+}
+ul {
+  margin: 0;
+  padding: 0;
+}
+li {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+li::first-letter {
+  text-transform: capitalize;
 }
 .units {
   font-size: 25px;
@@ -97,4 +111,7 @@ p {
 }
 .container .active:hover {
   text-decoration: none;
+}
+.weatherDesc {
+  text-align: center;
 }
