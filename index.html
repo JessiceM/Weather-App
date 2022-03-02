@@ -57,57 +57,14 @@
         <h3>Today</h3>
         <h4 id="dateTime"></h4>
 
-        <div class="border border-4 border-primary rounded-pill">
-          <div class="row">
-            <div class="col">8am</div>
-            <div class="col">9am</div>
-            <div class="col">10am</div>
-            <div class="col">11am</div>
-            <div class="col">12am</div>
-            <div class="col">1pm</div>
-            <div class="col">2pm</div>
-          </div>
-          <div class="row">
-            <div class="col">59°</div>
-            <div class="col">60°</div>
-            <div class="col">60°</div>
-            <div class="col">61°</div>
-            <div class="col">61°</div>
-            <div class="col">62°</div>
-            <div class="col">62°</div>
-          </div>
-        </div>
-        <div class="border border-4 border-primary rounded">
-          <div class="row">
-            <div class="col">
-              Monday <br />
-              🌧️
-            </div>
-            <div class="col">
-              Tuesday<br />
-              ⛅
-            </div>
-            <div class="col">
-              Wednesday<br />
-              ☁️
-            </div>
-            <div class="col">
-              Thursday<br />
-              ⛅
-            </div>
-            <div class="col">
-              Friday<br />
-              ☀️
-            </div>
-          </div>
-          <div class="row">
-            <div class="col">57°</div>
-            <div class="col">68°</div>
-            <div class="col">45°</div>
-            <div class="col">50°</div>
-            <div class="col">62°</div>
-          </div>
-        </div>
+        <div
+          class="border border-4 border-primary rounded-pill"
+          id="forecastHourly"
+        ></div>
+        <div
+          class="border border-4 border-primary rounded"
+          id="forecastDaily"
+        ></div>
         <div class="search">
           <form id="weather-form">
             <input type="text" id="city-input" placeholder="Enter in city" />

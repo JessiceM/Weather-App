@@ -23,11 +23,100 @@ function formatDate(timestamp) {
   return `${day} ${hours}:${minutes}`;
 }
 
+function displayForecasth() {
+  let forecast = response.data.hourly;
+  let forecastHourlyElement = document.querySelector("#forecastHourly");
+
+  let forecastHTML = `<div class="row">`;
+  forecast.forEach(function (forecastHour, index) {
+    if (index < 7) {
+      forecastHTML =
+        forecastHTML +
+        `
+      <div class="col">
+        <div class="forecastHour">${formatHour(forecastHour.dt)}</div>
+
+        <div class="forecastTemp">
+          <span class="forecastTemp-max"> ${Math.round(
+            forecastHour.temp
+          )}° </span>
+        </div>
+      </div>
+  `;
+    }
+  });
+
+  forecastHTML = forecastHTML + `</div>`;
+  forecastHourlyElement.innerHTML = forecastHTML;
+}
+
+function formatHour(timestamp) {
+  let date = new Date(timestamp);
+  let hours = date.getHours();
+  return hours;
+}
+
+function formatDay(timestamp) {
+  let date = new Date(timestamp * 1000);
+  let day = date.getDay();
+  let days = ["Sun", "Mon", "Tues", "Wed", "Thurs", "Fri", "Sat"];
+  return days[day];
+}
+
+function displayForecast(response) {
+  let forecast = response.data.daily;
+  let forecastElement = document.querySelector("#forecastDaily");
+
+  let forecastHTML = `<div class="row">`;
+  forecast.forEach(function (forecastDay, index) {
+    if (index < 5) {
+      forecastHTML =
+        forecastHTML +
+        `
+      <div class="col">
+        <div class="forecastDay">${formatDay(forecastDay.dt)}</div>
+        <img
+          src="http://openweathermap.org/img/wn/${
+            forecastDay.weather[0].icon
+          }@2x.png"
+          alt=""
+          width="42"
+        />
+        <div class="forecastTemp">
+          <span class="forecastTemp-max"> ${Math.round(
+            forecastDay.temp.max
+          )}° </span>
+          <span class="forecastTemp-min"> ${Math.round(
+            forecastDay.temp.min
+          )}° </span>
+        </div>
+      </div>
+  `;
+    }
+  });
+
+  forecastHTML = forecastHTML + `</div>`;
+  forecastElement.innerHTML = forecastHTML;
+}
+
+function getForecastDay(coordinates) {
+  console.log(coordinates);
+  let apiKey = "e5d2f23cc936c207378a1d9745e0ab60";
+  let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=metric`;
+  axios.get(apiUrl).then(displayForecast);
+}
+function getForecastHour(coordinates) {
+  let apiKey = "e5d2f23cc936c207378a1d9745e0ab60";
+  let apiUrl = `https://pro.openweathermap.org/data/2.5/forecast/hourly?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}`;
+  axios.get(apiUrl).then(displayForecasth);
+}
+
 //1A. Submit button clicks
 let apiKey = "e5d2f23cc936c207378a1d9745e0ab60";
 let form = document.querySelector("#weather-form");
 form.addEventListener("click", replace);
 let cityInput;
+
 //2A. Replaces h1 city with the user input then calls userCityInput
 function replace(event) {
   event.preventDefault();
@@ -36,6 +125,7 @@ function replace(event) {
   city.innerHTML = cityInput.value;
   userCityInput();
 }
+
 //3A. userCityInput stores value from user input then calls getTemp function
 function userCityInput(response) {
   let city = cityInput.value;
@@ -77,6 +167,8 @@ function getTemp(response) {
   description.innerHTML = response.data.weather[0].description;
   let currentDate = document.querySelector("#dateTime");
   currentDate.innerHTML = formatDate(response.data.dt * 1000);
+  getForecastHour(response.data.coord);
+  getForecastDay(response.data.coord);
 }
 //2B. Get user coordinates
 function getCurrentPosition() {
