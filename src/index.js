@@ -1,4 +1,4 @@
-// Displays current time in Dallas
+// Displays current time
 function formatDate(timestamp) {
   let date = new Date(timestamp);
   let hours = date.getHours();
@@ -23,39 +23,6 @@ function formatDate(timestamp) {
   return `${day} ${hours}:${minutes}`;
 }
 
-function displayForecasth() {
-  let forecast = response.data.hourly;
-  let forecastHourlyElement = document.querySelector("#forecastHourly");
-
-  let forecastHTML = `<div class="row">`;
-  forecast.forEach(function (forecastHour, index) {
-    if (index < 7) {
-      forecastHTML =
-        forecastHTML +
-        `
-      <div class="col">
-        <div class="forecastHour">${formatHour(forecastHour.dt)}</div>
-
-        <div class="forecastTemp">
-          <span class="forecastTemp-max"> ${Math.round(
-            forecastHour.temp
-          )}° </span>
-        </div>
-      </div>
-  `;
-    }
-  });
-
-  forecastHTML = forecastHTML + `</div>`;
-  forecastHourlyElement.innerHTML = forecastHTML;
-}
-
-function formatHour(timestamp) {
-  let date = new Date(timestamp);
-  let hours = date.getHours();
-  return hours;
-}
-
 function formatDay(timestamp) {
   let date = new Date(timestamp * 1000);
   let day = date.getDay();
@@ -66,7 +33,7 @@ function formatDay(timestamp) {
 function displayForecast(response) {
   let forecast = response.data.daily;
   let forecastElement = document.querySelector("#forecastDaily");
-
+  console.log(response.data.daily);
   let forecastHTML = `<div class="row">`;
   forecast.forEach(function (forecastDay, index) {
     if (index < 5) {
@@ -105,11 +72,6 @@ function getForecastDay(coordinates) {
   let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=metric`;
   axios.get(apiUrl).then(displayForecast);
 }
-function getForecastHour(coordinates) {
-  let apiKey = "e5d2f23cc936c207378a1d9745e0ab60";
-  let apiUrl = `https://pro.openweathermap.org/data/2.5/forecast/hourly?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}`;
-  axios.get(apiUrl).then(displayForecasth);
-}
 
 //1A. Submit button clicks
 let apiKey = "e5d2f23cc936c207378a1d9745e0ab60";
@@ -121,14 +83,11 @@ let cityInput;
 function replace(event) {
   event.preventDefault();
   cityInput = document.querySelector("#city-input");
-  let city = document.querySelector("h1");
-  city.innerHTML = cityInput.value;
-  userCityInput();
+  search(cityInput.value);
 }
 
 //3A. userCityInput stores value from user input then calls getTemp function
-function userCityInput(response) {
-  let city = cityInput.value;
+function search(city) {
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
   axios.get(apiUrl).then(getTemp);
 }
@@ -167,7 +126,8 @@ function getTemp(response) {
   description.innerHTML = response.data.weather[0].description;
   let currentDate = document.querySelector("#dateTime");
   currentDate.innerHTML = formatDate(response.data.dt * 1000);
-  getForecastHour(response.data.coord);
+  let cityElement = document.querySelector("h1");
+  cityElement.innerHTML = response.data.name;
   getForecastDay(response.data.coord);
 }
 //2B. Get user coordinates
@@ -178,3 +138,4 @@ function getCurrentPosition() {
 //1B. Current button clicks
 let currentForm = document.querySelector("#current-input");
 currentForm.addEventListener("click", getCurrentPosition);
+search("Dallas");

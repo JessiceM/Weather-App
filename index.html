@@ -41,7 +41,7 @@
             <div class="col-md-auto">
               <h2>62</h2>
             </div>
-            <div class="col-lg-4">
+            <div class="col-lg-auto">
               <span class="units">°C</span>
             </div>
           </div>
@@ -55,16 +55,17 @@
         <h4 id="dateTime"></h4>
 
         <div
-          class="border border-4 border-primary rounded-pill"
-          id="forecastHourly"
-        ></div>
-        <div
           class="border border-4 border-primary rounded"
           id="forecastDaily"
         ></div>
         <div class="search">
           <form id="weather-form">
-            <input type="text" id="city-input" placeholder="Enter in city" />
+            <input
+              type="text"
+              id="city-input"
+              class="inputBox"
+              placeholder="Enter in city"
+            />
             <input type="submit" value="Submit" class="submitButton" />
             <input
               type="submit"
