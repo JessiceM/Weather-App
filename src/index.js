@@ -149,10 +149,10 @@ function locaTion(response) {
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
   axios.get(apiUrl).then(getTemp);
 }
-let Temp = null;
+//let Temp = null;
 //4A & 5B. Final call for Submit and Current Button.....Displays Temp and weather icon
 function getTemp(response) {
-  Temp = response.data.main.temp;
+  let Temp = response.data.main.temp;
   let h2 = document.querySelector("h2");
   h2.innerHTML = Math.round(Temp);
   let weatherIcon = document.querySelector("#icon");
@@ -178,30 +178,3 @@ function getCurrentPosition() {
 //1B. Current button clicks
 let currentForm = document.querySelector("#current-input");
 currentForm.addEventListener("click", getCurrentPosition);
-
-// Displays fahren
-function displayFahren(event) {
-  event.preventDefault(); //don't open browser
-  let temp = document.querySelector("h2");
-  //Remove the active class the celsius link
-  celsiusLink.classList.remove("active");
-  fahrenLink.classList.add("active");
-  let fahrenTemp = (Temp * 9) / 5 + 32;
-  temp.innerHTML = Math.round(fahrenTemp);
-}
-
-// Displays back to celcius
-function displayCelsius(event) {
-  event.preventDefault();
-  let temp = document.querySelector("h2");
-  celsiusLink.classList.add("active");
-  fahrenLink.classList.remove("active");
-
-  temp.innerHTML = Math.round(Temp);
-}
-
-let fahrenLink = document.querySelector("#fahrenConvert");
-fahrenLink.addEventListener("click", displayFahren);
-
-let celsiusLink = document.querySelector("#celsiusConvert");
-celsiusLink.addEventListener("click", displayCelsius);
