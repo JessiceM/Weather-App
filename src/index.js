@@ -50,9 +50,9 @@ function displayForecast(response) {
           width="42"
         />
         <div class="forecastTemp">
-          <span class="forecastTemp-max"> ${Math.round(
-            forecastDay.temp.max
-          )}° </span>
+         <strong> <span class="forecastTemp-max" > ${Math.round(
+           forecastDay.temp.max
+         )}° </span></strong>|
           <span class="forecastTemp-min"> ${Math.round(
             forecastDay.temp.min
           )}° </span>
